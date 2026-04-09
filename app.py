@@ -19,7 +19,7 @@ Use natural language to search:
 st.markdown("""
 ### Example Questions
 * What is the completeness of the hes apc data for england?
-* What is it the monthly counts of distinct patient per month in gdppr?
+* What is the monthly counts of distinct patient per month in gdppr?
 * What is the metholodology for creating the the kpc data?
 * What code is used to integrate the demographics table into the standard pipeline?
 """)
