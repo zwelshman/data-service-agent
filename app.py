@@ -15,6 +15,15 @@ Use natural language to search:
 * [BHF Standard Pipeline](https://github.com/BHFDSC/standard-pipeline/)
 * [BHF Data Summary Dashboard](https://bhfdatasciencecentre.org/dashboard/)
 """)
+
+st.markdown("""
+### Example Questions
+What is the completeness of the hes apc data for england?
+What is it the monthly counts of distinct patient per month in gdppr?
+What is the metholodology for creating the the kpc data?
+What code is used to integrate the demographics table into the standard pipeline?
+""")
+
 # Create a session once per Streamlit session
 if "session_id" not in st.session_state:
     session = client.beta.sessions.create(
