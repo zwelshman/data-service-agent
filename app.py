@@ -24,7 +24,6 @@ if "session_id" not in st.session_state:
 # Display chat history
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
-        # Render any thinking steps stored in history
         for step in msg.get("steps", []):
             if step["type"] == "thinking":
                 with st.expander("💭 Thinking", expanded=False):
@@ -65,18 +64,13 @@ if prompt := st.chat_input("Ask about BHF DSC..."):
             for event in stream:
 
                 if event.type == "agent.thinking":
-                    # Render thinking block inline as an expander
-                    thinking_text = ""
-                    for block in event.content:
-                        if block.type == "thinking":
-                            thinking_text += block.thinking
+                    thinking_text = getattr(event, "thinking", "")
                     if thinking_text:
                         with st.expander("💭 Thinking...", expanded=True):
                             st.markdown(thinking_text)
                         steps.append({"type": "thinking", "content": thinking_text})
 
                 elif event.type == "agent.tool_use":
-                    # Show tool being called
                     tool_name = getattr(event, "name", "unknown")
                     tool_input = getattr(event, "input", {})
                     with st.expander(f"🔧 Tool: `{tool_name}`", expanded=True):
@@ -85,12 +79,11 @@ if prompt := st.chat_input("Ask about BHF DSC..."):
                     steps.append({"type": "tool_use", "name": tool_name, "input": tool_input})
 
                 elif event.type == "agent.tool_result":
-                    # Show tool result
                     tool_name = getattr(event, "name", "unknown")
-                    result_content = ""
-                    for block in getattr(event, "content", []):
-                        if hasattr(block, "text"):
-                            result_content += block.text
+                    raw = getattr(event, "content", "") or getattr(event, "output", "")
+                    result_content = raw if isinstance(raw, str) else " ".join(
+                        getattr(b, "text", "") for b in raw
+                    )
                     with st.expander(f"📤 Result: `{tool_name}`", expanded=False):
                         st.markdown(result_content or "_No output_")
                     steps.append({"type": "tool_result", "name": tool_name, "content": result_content})
