@@ -8,6 +8,11 @@ VAULT_ID = st.secrets["VAULT_ID"]
 BETAS = ["managed-agents-2026-04-01"]
 
 st.title("BHF DSC Assistant")
+st.markdown("""Use natural languate to search \n
+            [bhf hds docs](https://bhfdsc.github.io/documentation/) \n
+            [bhf standard pipeline](https://github.com/BHFDSC/standard-pipeline/) \n
+            [bhf data summary dashboard](https://bhfdatasciencecentre.org/dashboard/) \n
+           """)
 
 # Create a session once per Streamlit session
 if "session_id" not in st.session_state:
