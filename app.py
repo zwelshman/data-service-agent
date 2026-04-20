@@ -7,7 +7,7 @@ ENVIRONMENT_ID = st.secrets["ENVIRONMENT_ID"]
 VAULT_ID = st.secrets["VAULT_ID"]
 BETAS = ["managed-agents-2026-04-01"]
 
-st.title("BHF DSC Assistant")
+st.title("BHF Health Data Science Assistant")
 st.markdown("""
 ### Quick Links
 Use natural language to search:
